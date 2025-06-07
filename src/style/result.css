@@ -1,0 +1,19 @@
+.report-summary-container {
+    height: 40vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    padding: 12px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border: 1px solid black;
+}
+
+.charts-container {
+    height: 50vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    padding: 12px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border: 1px solid black;
+}

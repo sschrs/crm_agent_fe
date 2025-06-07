@@ -1,0 +1,32 @@
+.chat-container {
+  height: 40vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 12px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.chat-container::-webkit-scrollbar {
+  display: none;
+}
+
+.message {
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.message.user {
+  max-width: 75%;
+  align-self: flex-end;
+  background-color: #d0d4d2;
+  padding: 10px 14px;
+  border-radius: 12px;
+}
+
+.message.assistant {
+  align-self: flex-start;
+  margin-bottom: 30px;
+  color: #212529;
+}

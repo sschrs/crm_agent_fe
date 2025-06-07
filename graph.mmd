@@ -1,0 +1,21 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+        __start__([<p>__start__</p>]):::first
+        customer_specification_check(customer_specification_check)
+        customer_data(customer_data)
+        get_data(get_data)
+        answer_text(answer_text)
+        __end__([<p>__end__</p>]):::last
+        __start__ --> customer_specification_check;
+        customer_data --> get_data;
+        customer_specification_check -. &nbsp;True&nbsp; .-> customer_data;
+        customer_specification_check -. &nbsp;False&nbsp; .-> get_data;
+        get_data --> answer_text;
+        answer_text --> __end__;
+        classDef default fill:#f2f0ff,line-height:1.2
+        classDef first fill-opacity:0
+        classDef last fill:#bfb6fc
