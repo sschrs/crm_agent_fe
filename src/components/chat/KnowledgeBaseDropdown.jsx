@@ -2,51 +2,60 @@ import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setKnowledgeBase } from "../../redux/slicers/sessionSlice";
 import axios from "axios";
-import { newKnowledgeBase } from "../../api/knowledgeBase";
+import { newKnowledgeBase ,fetchKnowledgeBaseNames } from "../../api/knowledgeBase";
 
 export const KnowledgeBaseDropdown = () => {
     const dispatch = useDispatch();
     const session = useSelector((state) => state.session);
-    const selected = session.knowledgeBase || [];
+    const selected  = session.knowledgeBase ?? [];
 
     const [open, setOpen] = useState(false);
+    const [options, setOptions] = useState([
+        { label: "Knowledge 1", value: "knowledge1" },
+        { label: "Knowledge 2", value: "knowledge2" },
+        { label: "Knowledge 3", value: "knowledge3" },
+        { label: "New Knowledge Base", value: "new" },
+    ]);
     const [showModal, setShowModal] = useState(false);
     const [newName, setNewName] = useState("");
     const [newFile, setNewFile] = useState(null);
     const dropdownRef = useRef();
-
-    const options = [
-        { label: "Knowledge 1", value: "knowledge1" },
-        { label: "Knowledge 2", value: "knowledge2" },
-        { label: "Knowledge 3", value: "knowledge3" },
-        { label: "New Knowledge Base", value: "new" }
-    ];
-
-    const toggleOption = (value) => {
-        const updated = selected.includes(value)
-            ? selected.filter((v) => v !== value)
-            : [...selected, value];
-
-        dispatch(setKnowledgeBase(updated));
-    };
-
-    const selectedLabels =
-        selected.length === 0
-            ? "Select Knowledge Base"
-            : options
-                  .filter((opt) => selected.includes(opt.value))
-                  .map((opt) => opt.label)
-                  .join(", ");
-
+    
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+    fetchKnowledgeBaseNames()
+        .then(({ data }) =>
+        setOptions([
+            ...data.map((n) =>
+            typeof n === "string"
+                ? { label: n, value: n }  // if backend returns ["kb1", "kb2"]
+                : { label: n.name, value: n.name } // if backend returns [{name:"kb1"}]
+            ),
+            { label: "New Knowledge Base", value: "new" },
+        ])
+        )
+        .catch((err) => {
+        console.error("Cannot load KB names", err);
+        setOptions([{ label: "New Knowledge Base", value: "new" }]);
+        });
     }, []);
+
+  const toggleOption = (value) => {
+    dispatch(
+      setKnowledgeBase(
+        selected.includes(value)
+          ? selected.filter((v) => v !== value)
+          : [...selected, value]
+      )
+    );
+  };
+
+  const selectedLabels =
+    selected.length === 0
+      ? "Select Knowledge Base"
+      : options
+          .filter((o) => selected.includes(o.value))
+          .map((o) => o.label)
+          .join(", ");
 
     const handleUpload = async () => {
         if (!newName || !newFile) return;
