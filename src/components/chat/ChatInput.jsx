@@ -22,7 +22,7 @@ export const ChatInput = (props) => {
             user_question: userQuestion,
             data_source: session.dataSource,
             knowledge_base: session.knowledgeBase,
-            chat: session.chatHistory
+            chat: session.chatHistory,
         }
 
         const response = await invokeGraph(data);
@@ -30,7 +30,8 @@ export const ChatInput = (props) => {
         const chat = {
             user: response.data.user_question,
             assistant: response.data.answer,
-            chart: response.data.chart
+            chart: response.data.chart,
+            table: response.data.data_result
         };
 
         if (response.data.customer_specification){
@@ -48,7 +49,7 @@ export const ChatInput = (props) => {
         setUserQuestion("");
     }
 
-    
+    console.log(session.chatHistory);
 
     return (
         <div>

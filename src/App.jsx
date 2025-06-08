@@ -6,7 +6,6 @@ function App() {
   return (
     <div className="container my-4">
       <TopBar />
-      <Result />
       <Chat />
     </div>
   )

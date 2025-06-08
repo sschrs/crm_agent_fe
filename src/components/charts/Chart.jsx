@@ -35,7 +35,7 @@ export const Chart = ({ labels, data, defaultChartType = "bar", title }) => {
   };
 
   return (
-    <div className="container">
+    <div className="">
       <div className="mb-3">
         <select
           className="form-select w-auto"
