@@ -39,23 +39,23 @@ export const KnowledgeBaseDropdown = () => {
         });
     }, []);
 
-  const toggleOption = (value) => {
-    dispatch(
-      setKnowledgeBase(
-        selected.includes(value)
-          ? selected.filter((v) => v !== value)
-          : [...selected, value]
-      )
-    );
-  };
+    const toggleOption = (value) => {
+        dispatch(
+        setKnowledgeBase(
+            selected.includes(value)
+            ? selected.filter((v) => v !== value)
+            : [...selected, value]
+        )
+        );
+    };
 
-  const selectedLabels =
-    selected.length === 0
-      ? "Select Knowledge Base"
-      : options
-          .filter((o) => selected.includes(o.value))
-          .map((o) => o.label)
-          .join(", ");
+    const selectedLabels =
+        selected.length === 0
+        ? "Select Knowledge Base"
+        : options
+            .filter((o) => selected.includes(o.value))
+            .map((o) => o.label)
+            .join(", ");
 
     const handleUpload = async () => {
         if (!newName || !newFile) return;
