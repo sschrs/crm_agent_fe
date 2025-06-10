@@ -11,7 +11,8 @@ export const DataSourceDropdown = () => {
     const options = [
         { value: "billing", label: "Billing" },
         { value: "usage", label: "Usage" },
-        { value: "campaign", label: "Campaign" }
+        { value: "campaign", label: "Campaign" },
+        { value: "crm", label: "Crm"}
     ];
 
     const toggleOption = (value) => {
